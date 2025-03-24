@@ -1,15 +1,25 @@
 import { render, screen, within } from '@testing-library/react';
 import UserList from './UserList';
 
-const users = [
-    { name: 'John Doe', email: 'johndoe@example.com' },
-    { name: 'Sam Smith', email: 'samsmith@example.com' },
-];
+function renderComponent() {
+    const users = [
+        { name: 'John Doe', email: 'johndoe@example.com' },
+        { name: 'Sam Smith', email: 'samsmith@example.com' },
+    ];
+    render(<UserList users={users} />);
+    return { users };
+}
+
+// // runs before each test
+// beforeEach(() => {
+//     render(<UserList users={[]} />);
+// });
 
 test('render one row per user', () => {
     // Render the component
+    renderComponent();
     // const { container } = render(<UserList users={users} />);
-    render(<UserList users={users} />);
+    // render(<UserList users={users} />);
 
     // // helps to pick the right selector, see link in jest console
     // // screen.logTestingPlaygroundURL();
@@ -25,7 +35,7 @@ test('render one row per user', () => {
 });
 
 test('render the email and name of each user', () => {
-    render(<UserList users={users} />);
+    const { users } = renderComponent();
     for (const user of users) {
         const name = screen.getByRole('cell', { name: user.name });
         const email = screen.getByRole('cell', { name: user.email });
