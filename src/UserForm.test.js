@@ -27,11 +27,6 @@ test('UserForm shows two inputs and a button', () => {
 });
 
 test('UserForm calls onUserAdd when the form is submitted', async () => {
-    // NOT THE BEST IMPLEMENTATION
-    const argList = [];
-    const callback = (...args) => {
-        argList.push(args);
-    };
     // Try to render my component
     render(<UserForm onUserAdd={callback} />);
 
@@ -57,3 +52,35 @@ test('UserForm calls onUserAdd when the form is submitted', async () => {
     expect(argList).toEqual([[{ name: 'John Doe', email: 'johndoe@example.com' }]]);
     // expect(argList[0][0]).toEqual({ name: 'John Doe', email: 'johndoe@example.com' });
 });
+
+// test('UserForm calls onUserAdd when the form is submitted', async () => {
+//     // NOT THE BEST IMPLEMENTATION
+//     const argList = [];
+//     const callback = (...args) => {
+//         argList.push(args);
+//     };
+//     // Try to render my component
+//     render(<UserForm onUserAdd={callback} />);
+
+//     // Find the two inputs
+//     const [nameInput, emailInput] = screen.getAllByRole('textbox');
+
+//     // Simulate typing in a name
+//     await user.click(nameInput);
+//     await user.keyboard('John Doe');
+
+//     // Simulate typing in an email
+//     await user.click(emailInput);
+//     await user.keyboard('johndoe@example.com');
+
+//     // Find the button
+//     const button = screen.getByRole('button');
+
+//     // Simulate clicking the button
+//     await user.click(button);
+
+//     // Assertion to make sure 'onUserAdd' was called with email/name
+//     expect(argList).toHaveLength(1);
+//     expect(argList).toEqual([[{ name: 'John Doe', email: 'johndoe@example.com' }]]);
+//     // expect(argList[0][0]).toEqual({ name: 'John Doe', email: 'johndoe@example.com' });
+// });
